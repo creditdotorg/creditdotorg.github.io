@@ -1,0 +1,35 @@
+<head>
+    <style>
+        body {
+            background-color: "2D4481"
+        }
+    </style>
+</head>
+
+<html>
+    <iframe id="reportFrame" title="Team Report" width="100%" height="100%" src="https://app.powerbi.com/reportEmbed?reportId=9b0c31fe-3a94-4710-8fec-f65a946f7f6b&autoAuth=true&ctid=cebced0f-96d6-482a-9bb2-01f61235cd7e&navContentPaneEnabled=false" frameborder="0" allowFullScreen="true"></iframe>
+</html>
+
+<script>
+    reportIds = {
+        "rm_fec":"ad0c04d2-e9f9-432c-bc56-e458f51156cd",
+        "cdc_dmp":"78672239-a3b4-4140-ae26-2118564afe2e"
+    }
+
+    // get url params
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const report = urlParams.get('report')
+
+    reportId = reportIds[report];
+    src = "https://app.powerbi.com/reportEmbed?reportId="+reportId+"&autoAuth=true&ctid=cebced0f-96d6-482a-9bb2-01f61235cd7e&navContentPaneEnabled=false";
+    document.getElementById('reportFrame').src = src;
+
+    var delay = 90
+    var unix_seconds = Math.floor(Date.now() / 1000)
+    var remaining_seconds = delay - (unix_seconds % delay) + 1;
+    var meta = document.createElement('meta');
+    meta.httpEquiv = "refresh";
+    meta.content = remaining_seconds;
+    document.getElementsByTagName('head')[0].appendChild(meta);
+</script>
