@@ -12,24 +12,27 @@
 
 <script>
     reportIds = {
-        "rm_fec":"ad0c04d2-e9f9-432c-bc56-e458f51156cd",
-        "rm_fec_dev":"269de54e-af27-467a-b9dd-566ecbcebd4a",
-        "cdc_dmp":"78672239-a3b4-4140-ae26-2118564afe2e",
-        "cdc_dmp_dev":"82300339-8f30-48dc-915b-e1dcc36b41f4"
+        "rm_fec":"fd2deaa5-f0b8-4702-a220-2e954a805bf7",
+        "rm_fec_dev":"e7c5a67a-486d-4e0f-a2a4-98ae1184746f",
+        "cdc_dmp":"213e0acf-42bb-432a-ae4f-77815f72e719",
+        "cdc_dmp_dev":"11a3db04-b0fc-4e2a-9121-53275fb7e0be",
+        "agent_stats":"dbaeb6c4-af28-4d93-8267-6d64b5a2d8eb",
+        "agent_stats_dev":"1bc83eb6-a6d8-4f15-a36d-f4c4cb3e3d65"
     }
 
     // get url params
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const report = urlParams.get('report')
+    const duration = urlParams.get('duration') == undefined ? 90 : urlParams.get('duration')
+    // const team = urlParams.get('team')
 
     reportId = reportIds[report];
     src = "https://app.powerbi.com/reportEmbed?reportId="+reportId+"&autoAuth=true&ctid=cebced0f-96d6-482a-9bb2-01f61235cd7e&navContentPaneEnabled=false";
     document.getElementById('reportFrame').src = src;
 
-    var delay = 90
     var unix_seconds = Math.floor(Date.now() / 1000)
-    var remaining_seconds = delay - (unix_seconds % delay) + 1;
+    var remaining_seconds = duration - (unix_seconds % duration) + 1;
     var meta = document.createElement('meta');
     meta.httpEquiv = "refresh";
     meta.content = remaining_seconds;
