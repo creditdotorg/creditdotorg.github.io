@@ -30,6 +30,8 @@
             <div class="form-check">
                 <input type="radio" class="form-check-input" name="optradio" id="agent_stats" value="agent_stats">
                 <label class="form-check-label" for="agent_stats">Agent Stats</label>
+                <select name="teams" style="margin-left:25px; width:150px;" id="teams">
+                </select>
             </div>
             <br><br>
             <div class="container">
@@ -56,6 +58,22 @@
 </body>
 
 <script>
+
+    teams = {
+        "Debt":"SG-PowerBITeam-Debt",
+        "First Contact":"SG-PowerBITeam-FirstContact",
+        "Housing":"SG-PowerBITeam-Housing"
+    }
+
+    team_select = document.getElementById("teams")
+ 
+    for (t in teams) {
+        var opt = document.createElement('option');
+        opt.value = teams[t];
+        opt.innerHTML = t;
+        team_select.appendChild(opt);
+    }
+
     function open_dashboard() {
         if (document.getElementById('rm_fec').checked) {
             report = 'rm_fec'
@@ -76,7 +94,7 @@
 
         duration = document.getElementById('duration').value
         base_url = document.location.href.replace('menu.html','')
-        url = base_url + "index.html?report=" + report + environment + "&duration=" + duration;
+        url = base_url + "index.html?report=" + report + environment + "&team=" + team_select.value + "&duration=" + duration;
 
         console.log(url);
 
